@@ -53,10 +53,13 @@ class Menu(object):
             if(self.calledIndex != None):
                 if(self.calledIndex < len(self.callstackList)):
                     self.callIndex(self.calledIndex)
+                    # call and clean exit
                     return
-                
+            
+            # integer check failed
             self.invalidInput()
         except:
+            # try failed
             self.invalidInput()
 
 
