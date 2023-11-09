@@ -6,18 +6,26 @@ class Cmd(object):
     argc: int
     argv: List[str] = []
 
-    specifiers: Dict[str, str] = {}
+    specifiers: Dict[str, List|Dict] = {}
+    # not needed 
+    #specifiers["arg"] = {}
+    #specifiers["static"] = []
+
     command: str = ""
     other: List[str] = []
     pattern: str = ""
 
     information: Dict = {}
 
+    cmdCommands: Dict[str, Callable] = {}
+
     def __init__(self, argc: int, argv: List[str], pattern: str):
         self.argc = argc
         self.argv = argv
         self.pattern = pattern
         if self.checkValidation():
+            # not needed
+            #self.analyzePattern()
             self.parseArgs()
 
     def checkValidation(self):
@@ -40,6 +48,17 @@ class Cmd(object):
         self.other.append(other)
         self.information["other"] = self.other
 
+    def analyzePattern(self):
+        specifiers: List[str] = re.findall(r"\[\S+\]|\[\S+ \S+\]", self.pattern)
+        for spec in specifiers:
+            spec = spec.replace("[", "")
+            spec = spec.replace("]", "")
+            element = spec.split(" ")
+            if(len(element) >= 2):
+                self.specifiers["arg"][element[0][1:]] = element[1]
+            else:
+                self.specifiers["static"].append(element[0][1:])
+
     def parseArgs(self):
         self.addCommand(self.argv[1])
         lastSpec = None
@@ -55,6 +74,24 @@ class Cmd(object):
 
             if i > 0 and arg != self.command:
                 self.addOther(arg)
+
+    def checkSpecifier(self, spec: str):
+        if spec in self.information["specifiers"]:
+            return True
+        
+        return False
+
+    def getSpecifierArg(self, spec: str):
+        return self.information["specifiers"][spec]
+
+    def getAdditionalArgs(self):
+        return self.information["other"]
+    
+    def addCommandCall(self, command: str, call: Callable):
+        self.cmdCommands[command] = call
+
+    def call(self):
+        self.cmdCommands[self.information["command"]](self.information)
 
     def print(self):
         print(json.dumps(self.information, indent=4))
