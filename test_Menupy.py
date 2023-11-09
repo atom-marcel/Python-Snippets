@@ -1,4 +1,4 @@
-from Menupy.Menupy import Menu
+from Commandline.Menupy import Menu
 
 def test1():
     print("Called test1")
