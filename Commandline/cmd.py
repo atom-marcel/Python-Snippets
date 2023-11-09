@@ -91,7 +91,11 @@ class Cmd(object):
         self.cmdCommands[command] = call
 
     def call(self):
-        self.cmdCommands[self.information["command"]](self.information)
+        if self.command in self.cmdCommands:
+            self.cmdCommands[self.command](self.information)
+        else:
+            print("Es gibt keinen Funktionsaufruf für dieses Kommando")
+            print(self.pattern)
 
     def print(self):
         print(json.dumps(self.information, indent=4))

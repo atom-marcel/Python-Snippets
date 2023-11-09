@@ -15,7 +15,12 @@ def install(info: Dict):
     print(info["other"])
 
 if __name__ == "__main__":
-    cmd = Cmd(len(sys.argv), sys.argv, "./test_Commandline.py command [-f additional_file] [-i] [-k] [-b match] otherfiles\n./test_Commandline.py make\n./test_Commandline.py install")
+    pattern = \
+        """\t./test_Commandline.py command [-f ] [-i] [-k] [-b match] otherfile
+    \t./test_Commandline.py make [-f] otherfile
+    \t./test_Commandline.py install [-b match] otherfile"""
+
+    cmd = Cmd(len(sys.argv), sys.argv, pattern)
     cmd.addCommandCall("make", make)
     cmd.addCommandCall("install", install)
     cmd.call()
