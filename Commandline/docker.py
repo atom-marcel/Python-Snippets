@@ -15,8 +15,9 @@ class DockerCombine(object):
 
     def cmd(self, argc:int, argv: List[str]):
         c = cmd.Cmd(argc, argv, "docker-combine c -keys key1,key2,key3 -o outfile.yml files")
-        keys = c.information["keys"].split(",")
-        out = c.information["o"]
+        print(c.information)
+        keys = c.information["specifiers"]["keys"].split(",")
+        out = c.information["specifiers"]["o"]
         self.addFiles(c.information["other"])
         self.combine(keys)
         self.saveMaster(out)
