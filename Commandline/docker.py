@@ -47,3 +47,7 @@ class DockerCombine(object):
     def saveMaster(self, filename: str):
         with open(filename, "w") as f:
             yaml.safe_dump(self.master, f, sort_keys=False)
+
+def startCombine(argc:int, argv:List[str]):
+    dc = DockerCombine()
+    dc.cmd(argc, argv)

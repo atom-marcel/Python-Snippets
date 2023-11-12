@@ -1,0 +1,9 @@
+#!/usr/bin/python3
+
+from Commandline.docker import startCombine
+import sys
+
+if __name__ == "__main__":
+    argv = sys.argv
+    argc = len(argv)
+    startCombine(argc, argv)
