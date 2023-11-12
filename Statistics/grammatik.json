@@ -1,0 +1,30 @@
+{
+    "fuellwoerter": [
+      "aber", "also", "am", "an", "auf", "auch", "aus", "bei", "bin", "bis", 
+      "bist", "da", "dadurch", "daher", "darum", "das", "dass", "denn", 
+      "der", "des", "deshalb", "die", "dies", "diese", "dieser", "dieses", 
+      "doch", "dort", "du", "durch", "ein", "eine", "einem", "einen", 
+      "einer", "eines", "einig", "einige", "einigem", "einigen", "einiger", 
+      "einiges", "er", "es", "etwas", "euch", "euer", "eure", "für", "gegen", 
+      "gewesen", "hab", "habe", "haben", "hat", "hatte", "hatten", "hier", 
+      "hin", "hinter", "ich", "ihr", "ihre", "im", "in", "ist", "ja", "jede", 
+      "jedem", "jeden", "jeder", "jedes", "jene", "jenem", "jenen", "jener", 
+      "jenes", "jetzt", "kann", "kein", "keine", "kennen", "kennst", "können", 
+      "könnt", "machen", "mein", "meine", "mit", "nach", "nachdem", "nein", 
+      "nicht", "nichts", "noch", "nun", "nur", "ob", "oder", "ohne", "sehr", 
+      "sein", "seine", "sich", "sie", "sind", "so", "solche", "solchem", 
+      "solchen", "solcher", "solches", "soll", "sollen", "sondern", "sonst", 
+      "über", "um", "und", "uns", "unser", "unsere", "unter", "viel", "vom", 
+      "von", "vor", "während", "war", "waren", "warst", "was", "weg", "weil", 
+      "weiter", "welche", "welchem", "welchen", "welcher", "welches", "wenn", 
+      "werde", "werden", "wie", "wieder", "will", "wir", "wird", "wirst", 
+      "wo", "wollen", "wollt", "wollte", "würde", "würden", "zu", "zum", 
+      "zur", "zwar", "zwischen", "halb", "je", "wer"
+    ],
+    "ueberschriften_tags": ["h1", "h2", "h3", "h4", "h5", "h6", "title"],
+    "text_tags": ["p", "span", "li", "div"],
+    "satzzeichen": [",", ".", "!", "?", "\"", "&", "§", "/", ";", ":", "-", "*", "~", "+", "(", ")", "[", "]", "{", "}", "–", "|"]
+
+
+  }
+  

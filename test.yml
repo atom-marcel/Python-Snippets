@@ -1,0 +1,47 @@
+services:
+- mc:
+    image: itzg/minecraft-server:java20
+    volumes:
+    - /home/marcel/minecraft:/data
+    working_dir: /data
+    environment:
+      MEMORY: 512M
+      ENABLE_WHITELIST: 'true'
+      WHITELIST_FILE: whitelist.json
+      VERSION: 1.20.1
+      EULA: 'true'
+      TYPE: FORGE
+      FORGEVERSION: 47.2.1
+      GENERIC_PACK: modpacks/Create-1.0.zip
+    ports:
+    - 25565:25565
+    restart: unless-stopped
+- web:
+    image: nginx:latest
+    container_name: web-prod
+    volumes:
+    - /etc/nginx:/etc/nginx
+    - /usr/share/nginx/html:/usr/share/nginx/html
+    - /etc/letsencrypt:/etc/letsencrypt
+    - /home/nginx:/home/nginx
+    - /usr/src/app:/usr/src/app
+    - /mnt/volume-2/gitlab/nginx:/var/nginx
+    environment:
+    - NGINX_HOST=mmaluta.ddnss.de
+    - NGINX_PORT=80
+    ports:
+    - 443:443
+    - 80:80
+    restart: unless-stopped
+    networks:
+    - homeserver
+    - web
+networks:
+- homeserver:
+    name: homeserver
+    external: true
+  web:
+    name: web
+    external: true
+volumes: []
+version: '3.8'
