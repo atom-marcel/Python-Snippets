@@ -14,6 +14,7 @@ class Cmd(object):
     command: str = ""
     other: List[str] = []
     pattern: str = ""
+    validationPrint: bool = False
 
     information: Dict = {}
 
@@ -29,7 +30,8 @@ class Cmd(object):
             self.parseArgs()
 
     def checkValidation(self):
-        if self.argc <= 2:
+        if self.argc <= 2 and not self.validationPrint:
+            self.validationPrint = True
             print("Zu wenige Argumente wurden übergeben!")
             print(self.pattern)
             return False

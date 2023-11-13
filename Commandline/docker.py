@@ -14,13 +14,14 @@ class DockerCombine(object):
         self.master = {}
 
     def cmd(self, argc:int, argv: List[str]):
-        c = cmd.Cmd(argc, argv, "docker-combine c -keys key1,key2,key3 -o outfile.yml files")
-        print(c.information)
-        keys = c.information["specifiers"]["keys"].split(",")
-        out = c.information["specifiers"]["o"]
-        self.addFiles(c.information["other"])
-        self.combine(keys)
-        self.saveMaster(out)
+        c = cmd.Cmd(argc, argv, "\tdocker-combine c -keys key1,key2,key3 -o outfile.yml files")
+        if c.checkValidation():
+            if c.command == "c":
+                keys = c.information["specifiers"]["keys"].split(",")
+                out = c.information["specifiers"]["o"]
+                self.addFiles(c.information["other"])
+                self.combine(keys)
+                self.saveMaster(out)
 
 
     def addFiles(self, files: List[str]):
