@@ -15,13 +15,17 @@ class DockerCombine(object):
 
     def cmd(self, argc:int, argv: List[str]):
         c = cmd.Cmd(argc, argv, "\tdocker-combine c -keys key1,key2,key3 -o outfile.yml files")
-        if c.checkValidation():
-            if c.command == "c":
-                keys = c.information["specifiers"]["keys"].split(",")
-                out = c.information["specifiers"]["o"]
-                self.addFiles(c.information["other"])
-                self.combine(keys)
-                self.saveMaster(out)
+        assert c.checkValidation(), "Arguments not compatible with program"
+        assert c.command == "c", "No valid command found"
+        assert c.getSpecifierArg("keys"), "No keys found"
+        assert c.getSpecifierArg("o"), "No output file found"
+        assert c.information["other"], "No input files found"
+        
+        keys = c.information["specifiers"]["keys"].split(",")
+        out = c.information["specifiers"]["o"]
+        self.addFiles(c.information["other"])
+        self.combine(keys)
+        self.saveMaster(out)
 
 
     def addFiles(self, files: List[str]):

@@ -12,6 +12,8 @@ class Cfg(object):
     def loadFile(self):
         with open(self.path, "r") as f:
             self.rawString = f.read()
+        
+        self.rawStringToInformation()
 
     def rawStringToInformation(self): 
         isKey: bool = False
@@ -21,11 +23,13 @@ class Cfg(object):
         lastKey: str = ""
 
         lines: List[str] = self.rawString.splitlines()
-        print(lines)
 
         for line in lines:
             line = line.strip()
             for i, c in enumerate(line):
+                if c == " ":
+                    continue
+
                 if c == "[":
                     isTopic = True
                     continue
@@ -66,6 +70,8 @@ class Cfg(object):
             self.rawString += "\n"
 
     def saveFile(self):
+        self.informationToRawString()
+
         with open(self.path, "w") as f:
             f.write(self.rawString)
 
