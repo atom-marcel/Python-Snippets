@@ -1,4 +1,5 @@
-from typing import Dict, List, Any, TypedDict
+from typing import Dict, List, Any, TypedDict, Callable
+from Data_Manipulation.cfg import Cfg
 
 class Node:
     key: str | int
@@ -23,6 +24,12 @@ class Node:
             return 1
 
         return 0
+
+    def __eq__(self, __value: 'Node') -> bool:
+        if self.key == __value.key:
+            return True
+        
+        return False
     
     def compareKey(self, key: str | int):
         if(key < self.key):
@@ -55,7 +62,7 @@ class Tree:
             else:
                 top.right = node
 
-    def getValue(self, top: Node, key: str | int):
+    def getValue(self, key: str | int, top: Node = None):
         if not top:
             top = self.root
 
@@ -65,12 +72,12 @@ class Tree:
         cmp: int = top.compareKey(key)
         if(cmp < 0):
             if(top.left):
-                return self.getValue(top.left, key)
+                return self.getValue(key, top.left)
             else:
                 print(f"Key '{key}' not found in tree.")
         else:
             if(top.right):
-                return self.getValue(top.right, key)
+                return self.getValue(key, top.right)
             else:
                 print(f"Key '{key}' not found in tree.")
 
@@ -116,3 +123,36 @@ class Tree:
         else:
             print("_", end="")
         print(")", end="")
+
+    def toCfg(key: str | int, value: Dict, args: List):
+        key = str(key)
+        v = {}
+        for x in value.keys():
+            v[str(x)] = str(value[x])
+
+        dc = { key: v}
+        
+        for x in dc.keys():
+            args[0].information[x] = dc[x]
+
+        return dc
+    
+    def CfgToTree(self, cfg: Cfg):
+        for key in cfg.information.keys():
+            node = Node(key)
+            node.value = cfg.information[key]
+            if self.root:
+                self.insertOrdered(node)
+            else:
+                self.root = node
+
+    def iterate(self, operation: Callable, args: List = [], node: Node = None):
+        if not node:
+            node = self.root
+
+        if(node.left):
+            self.iterate(operation, args, node.left)
+        if(node.right):
+            self.iterate(operation, args, node.right)
+
+        return operation(node.key, node.value, args)

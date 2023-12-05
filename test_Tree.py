@@ -1,5 +1,6 @@
 from typing import Dict, List, Any
 from Data_Manipulation.tree import Tree, Node
+from Data_Manipulation.cfg import Cfg
 
 if __name__ == "__main__":
     root = Node(5)
@@ -20,4 +21,19 @@ if __name__ == "__main__":
     print(tree.getDepth())
     tree.print()
     print("\n")
-    print(tree.getValue(tree.root, 122))
+    print(tree.getValue(2))
+ 
+    cfg = Cfg("tree.cfg")
+    tree.iterate(Tree.toCfg, [cfg])
+    cfg.saveFile()
+
+    cfg = Cfg("tree2.cfg")
+    cfg.loadFile()
+
+    tree2 = Tree(None)
+    tree2.CfgToTree(cfg)
+
+    tree2.print()
+    print("\n")
+    print(tree2.getValue("7"))
+
