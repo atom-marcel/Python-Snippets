@@ -5,6 +5,8 @@ class Menu(object):
     callstackList: List[Callable] = []
     callstackDict: Dict[str, Callable] = {}
     name: str
+    index: int = 0
+    interact: bool = False
 
     calledIndex: int = 0
     lastInput: str = ""
@@ -24,20 +26,33 @@ class Menu(object):
     def callKey(self, key: str) -> Any:
         return self.callstackDict[key]()
     
-    def printMenu(self):
-        print(self.name)
-        print("Es gibt folgende Menüpunkte:")
-        for index, call in enumerate(self.callstackList):
-            string = [x for x in self.callstackDict.keys() if self.callstackDict[x] == call][0]
-            print(f"{index}\t{string}")
+    def printMenu(self, mode: str = "default"):
+        match mode:
+            case "default":
+                print(self.name)
+                print("Es gibt folgende Menüpunkte:")
+                for index, call in enumerate(self.callstackList):
+                    string = [x for x in self.callstackDict.keys() if self.callstackDict[x] == call][0]
+                    print(f"{index}\t{string}")
+            # case "interactive":
+            #     print(self.name)
+            #     print("Es gibt folgende Menüpunkte:")
+            #     for index, call in enumerate(self.callstackList):
+            #         string = [x for x in self.callstackDict.keys() if self.callstackDict[x] == call][0]
+            #         if index == self.index:
+            #             print(f">\t{index}\t{string}")
+            #         else:
+            #             print(f"\t{index}\t{string}")
 
     def clear(self):
         print("\033c")
     
-    def menuInteract(self):
-        self.clear()
-        self.printMenu()
-        self.keyboardInput()
+    def menuInteract(self, mode: str = "default"):
+        match mode:
+            case "default":    
+                self.clear()
+                self.printMenu()
+                self.keyboardInput()
 
     def invalidInput(self):
         self.clear()
