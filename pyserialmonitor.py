@@ -112,7 +112,7 @@ def updateView():
         print("\033c")
         print(view)
 
-def duplex(info: Dict):
+def dual(info: Dict):
     global loop
     global ser
 
@@ -135,14 +135,14 @@ def main():
     """\t./pyserialmonitor.py mode [-b baudrate] [-log logfile] port
     \t./pyserialmonitor.py monitor [-b baudrate] [-log logfile] port
     \t./pyserialmonitor.py sending [-b baudrate] port
-    \t./pyserialmonitor.py duplex [-b baudrate] port"""
+    \t./pyserialmonitor.py dual [-b baudrate] port"""
 
     argc = len(sys.argv)
     argv = sys.argv
     cmd = Cmd(argc, argv, pattern)
     cmd.addCommandCall("monitor", monitor)
     cmd.addCommandCall("sending", sending)
-    cmd.addCommandCall("duplex", duplex)
+    cmd.addCommandCall("dual", dual)
     cmd.call()
 
 if __name__ == "__main__":
