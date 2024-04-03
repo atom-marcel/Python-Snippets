@@ -1,5 +1,6 @@
 from typing import Callable, Dict, List, Any
 import pynput
+import os
 
 class Menu(object):
 
@@ -106,6 +107,3 @@ class Menu(object):
         except:
             # try failed
             self.invalidInput()
-
-
-
